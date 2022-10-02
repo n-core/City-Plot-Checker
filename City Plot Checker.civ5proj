@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <ProjectGuid>{9fa6fbba-299e-494c-9079-9ad60da3ba85}</ProjectGuid>
+    <Name>City Plot Checker</Name>
+    <Guid>051d7668-e95e-42b8-8e7e-c85d8811c16a</Guid>
+    <ModVersion>2</ModVersion>
+    <Stability>Beta</Stability>
+    <Teaser>Solution for that annoying second or third tile your city can't reach.</Teaser>
+    <Description>Tired of having coast on the second or third tile and unable to build Lighthouse or Harbor to get the yield benefits?
+[NEWLINE]Tired of can't build that one building mod that requires specific terrain nearby? But your city has that one terrain on the second or thrid tile?
+[NEWLINE]
+[NEWLINE]This mod has that solution just for you!
+[NEWLINE]By adding some additional city plot check for buildings and units, such as:
+[NEWLINE][ICON_BULLET] "Is the city has a workable X terrain plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable X feature plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable mountain plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable hill plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable plot that is adjacent to a river?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable water plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable coast plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable lake plot?"
+[NEWLINE]
+[NEWLINE]This mod add new columns on Buildings table.
+[NEWLINE][ICON_PLUS] IsHasTerrain
+[NEWLINE][ICON_PLUS] IsHasFeature
+[NEWLINE][ICON_PLUS] IsHasRiver
+[NEWLINE][ICON_PLUS] IsHasMountain
+[NEWLINE][ICON_PLUS] IsHasHill
+[NEWLINE][ICON_PLUS] IsHasAnyWater
+[NEWLINE][ICON_PLUS] IsHasSeaTile
+[NEWLINE][ICON_PLUS] IsHasLake
+[NEWLINE]
+[NEWLINE]Also, this mod adds the ability to city to be able to train sea units even though the city is not on coast, as long as the city has a sea tile.</Description>
+    <Authors>N.Core</Authors>
+    <SpecialThanks>
+    </SpecialThanks>
+    <AffectsSavedGames>true</AffectsSavedGames>
+    <MinCompatibleSaveVersion>0</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>true</SupportsSinglePlayer>
+    <SupportsMultiplayer>false</SupportsMultiplayer>
+    <SupportsHotSeat>false</SupportsHotSeat>
+    <SupportsMac>true</SupportsMac>
+    <AssemblyName>City Plot Checker</AssemblyName>
+    <RootNamespace>City Plot Checker</RootNamespace>
+    <ModReferences>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Vox Populi</Name>
+        <Id>8411a7a8-dad3-4622-a18e-fcc18324c799</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Tiles Tweak Overhaul</Name>
+        <Id>dd6de9dc-5833-4c49-980c-2267fa089322</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Water Tiles Enhanced</Name>
+        <Id>364bc3c9-e164-4887-9033-442add3dc249</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Improvements in Water Tiles</Name>
+        <Id>2cde4157-67b3-43af-86fd-6b01061834c9</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Enlightenment Era for Vox Populi</Name>
+        <Id>87b2deae-83cb-9b88-9017-79e741d3739c</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Community Patch Mod Compatibility</Name>
+        <Id>1b1c0548-b197-4f9c-9621-433d3b32c826</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Polar Station for VP</Name>
+        <Id>b6ce0fdd-7bde-4bf2-9710-060669d92d84</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>Ski Resort and Marina Building for VP</Name>
+        <Id>02484922-a809-4f03-b6f2-f4acd7f231e9</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+    </ModReferences>
+    <ReloadUnitSystem>true</ReloadUnitSystem>
+    <ModDependencies>
+    </ModDependencies>
+    <ModActions>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>CORETABLE.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>SQL/BUILDINGS.sql</FileName>
+      </Action>
+    </ModActions>
+    <ModContent>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>CPC - Plot Checker for Building</Name>
+        <Description>[CPC] Some basic plot checker function for buildings</Description>
+        <FileName>LUA/PLOTCHECKER_BUILDING.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>CPC - Plot Checker for Unit</Name>
+        <Description>[CPC] Some basic plot checker function for units</Description>
+        <FileName>LUA/PLOTCHECKER_UNIT.lua</FileName>
+      </Content>
+    </ModContent>
+    <ModBlockers>
+    </ModBlockers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Package Only' ">
+    <PackageMod>true</PackageMod>
+    <DeployMod>false</DeployMod>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Deploy Only' ">
+    <PackageMod>false</PackageMod>
+    <DeployMod>true</DeployMod>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="LUA" />
+    <Folder Include="SQL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CORETABLE.sql">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="LUA\PLOTCHECKER_BUILDING.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="LUA\PLOTCHECKER_UNIT.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="SQL\BUILDINGS.sql">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
+</Project>
