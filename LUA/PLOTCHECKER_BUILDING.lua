@@ -18,14 +18,15 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 	-- If the building has IsHasTerrain check
 	if iHasTerrain ~= NULL then
 		local iTerrainID = GameInfoTypes[iHasTerrain];
+		--trying to fetch building name from the database using DB.Query, but not working properly
+		--local buildingName = DB.Query("SELECT Text FROM Language_en_US WHERE Tag = (SELECT Description FROM Buildings WHERE ID = ?", buildingTypeID)
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do	
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
 				pCity:CanWork(pPlot) and
 				pPlot:GetTerrainType() == iTerrainID and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [", pPlot:GetTerrainType() == iTerrainID, "Terrain] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs the [", pPlot:GetTerrainType() == iTerrainID, "Terrain] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [", pPlot:GetTerrainType() == iTerrainID, "Terrain	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs the [", pPlot:GetTerrainType() == iTerrainID, "Terrain	] tile. ---");
 				return true
 			end
 		end
@@ -41,8 +42,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:GetFeatureType() == iFeatureID and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [", pPlot:GetFeatureType() == iFeatureID, "Feature] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs the [", pPlot:GetFeatureType() == iFeatureID, "Feature] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [", pPlot:GetFeatureType() == iFeatureID, "Feature	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs the [", pPlot:GetFeatureType() == iFeatureID, "Feature	] tile. ---");
 				return true
 			end
 		end
@@ -57,8 +57,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:IsRiver() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [River] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a tile that is adjacent to a [River]. ---");
+					--print("--- [", pCity:GetName(), "] has a workable plot adjacent to a [	River	]. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a tile that is adjacent to a [	River	]. ---");
 				return true
 			end
 		end
@@ -73,8 +72,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:IsHills() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- ", pCity:GetName(), "] has a [Hill] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a [Hill] tile. ---");
+					--print("--- ", pCity:GetName(), "] has a workable [	Hill	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a [	Hill	] tile. ---");
 				return true
 			end
 		end
@@ -89,8 +87,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:IsMountain() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [Mountain] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a [Mountain] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [	Mountain	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a [	Mountain	] tile. ---");
 				return true
 			end
 		end
@@ -105,8 +102,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:IsWater() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [Water] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a [Water] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [	Water	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a [	Water	] tile. ---");
 				return true
 			end
 		end
@@ -122,8 +118,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pPlot:IsWater() and
 				not pPlot:IsLake() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [Sea] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a [Sea] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [	Sea	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a [	Sea	] tile. ---");
 				return true
 			end
 		end
@@ -138,8 +133,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				pCity:CanWork(pPlot) and
 				pPlot:IsLake() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [Lake] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to build buildings that needs a [Lake] tile. ---");
+					--print("--- [", pCity:GetName(), "] has a workable [	Lake	] plot. Enabling [", pCity:GetName(),"] to be able to build [	Building ID:", buildingTypeID, "] that needs a [	Lake	] tile. ---");
 				return true
 			end
 		end

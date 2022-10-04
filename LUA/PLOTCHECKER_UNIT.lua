@@ -16,18 +16,9 @@ function unitCheck (iPlayer, iCity, unitType)
 		iCivilSeaUnitClassID = iCivilSeaUnitClass.ID;
 	end
 
-	--[[
-	local iCargoShipClass = GameInfo.UnitClasses.UNITCLASS_CARGO_SHIP
-	local iWorkBoatClass = GameInfo.UnitClasses.UNITCLASS_WORKBOAT
-	local iGAdmiralClass = GameInfo.UnitClasses.UNITCLASS_ADMIRAL
-	]]--
-
-	--local pUnitType = pPlayer:GetUnitByID(unitTypeID)
-	local pUnitType = GameInfo.Units[unitType].Domain;
-
-	--if pUnitType:GetDomainType() == DomainTypes.DOMAIN_SEA and
+	local pUnitType = GameInfo.Units[unitType].ID;
 	if	iCivilSeaUnitClassID ~= nil and
-		pUnitType == DomainTypes.DOMAIN_SEA and
+		pUnitType:GetDomainType() == DomainTypes.DOMAIN_SEA and
 		pUnitType:GetUnitClassType() ~= iCivilSeaUnitClassID then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do	
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot)
@@ -36,8 +27,7 @@ function unitCheck (iPlayer, iCity, unitType)
 				pPlot:IsWater() and
 				not pPlot:IsLake() and
 				pPlot:GetOwner() == iPlayer) then
-					print("--- [", pCity:GetName(), "] has a [Sea] tile on a workable plot. ---");
-					print("--- Enabling [", pCity:GetName(),"] to be able to train Sea units. ---");
+					print("--- [", pCity:GetName(), "] has a [	Sea	] tile on a workable plot. Enabling [", pCity:GetName(),"] to be able to train [	Sea	] units. ---");
 				return true
 			end
 		end
