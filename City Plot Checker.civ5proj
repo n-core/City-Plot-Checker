@@ -5,34 +5,32 @@
     <ProjectGuid>{9fa6fbba-299e-494c-9079-9ad60da3ba85}</ProjectGuid>
     <Name>City Plot Checker</Name>
     <Guid>051d7668-e95e-42b8-8e7e-c85d8811c16a</Guid>
-    <ModVersion>2</ModVersion>
+    <ModVersion>3</ModVersion>
     <Stability>Beta</Stability>
     <Teaser>Solution for that annoying second or third tile your city can't reach.</Teaser>
     <Description>Tired of having coast on the second or third tile and unable to build Lighthouse or Harbor to get the yield benefits?
-[NEWLINE]Tired of can't build that one building mod that requires specific terrain nearby? But your city has that one terrain on the second or thrid tile?
+[NEWLINE]Tired of can't build that one building that requires specific terrain nearby? But your city has that one terrain on the second or thrid tile?
 [NEWLINE]
 [NEWLINE]This mod has that solution just for you!
 [NEWLINE]By adding some additional city plot check for buildings and units, such as:
 [NEWLINE][ICON_BULLET] "Is the city has a workable X terrain plot?"
-[NEWLINE][ICON_BULLET] "Is the city has a workable X feature plot?"
-[NEWLINE][ICON_BULLET] "Is the city has a workable mountain plot?"
 [NEWLINE][ICON_BULLET] "Is the city has a workable hill plot?"
-[NEWLINE][ICON_BULLET] "Is the city has a workable plot that is adjacent to a river?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable mountain plot?"
 [NEWLINE][ICON_BULLET] "Is the city has a workable water plot?"
-[NEWLINE][ICON_BULLET] "Is the city has a workable coast plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable sea water plot?"
 [NEWLINE][ICON_BULLET] "Is the city has a workable lake plot?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable plot that is adjacent to a river?"
+[NEWLINE][ICON_BULLET] "Is the city has a workable fresh water plot?"
 [NEWLINE]
-[NEWLINE]This mod add new columns on Buildings table.
-[NEWLINE][ICON_PLUS] IsHasTerrain
-[NEWLINE][ICON_PLUS] IsHasFeature
-[NEWLINE][ICON_PLUS] IsHasRiver
-[NEWLINE][ICON_PLUS] IsHasMountain
-[NEWLINE][ICON_PLUS] IsHasHill
-[NEWLINE][ICON_PLUS] IsHasAnyWater
-[NEWLINE][ICON_PLUS] IsHasSeaTile
-[NEWLINE][ICON_PLUS] IsHasLake
-[NEWLINE]
-[NEWLINE]Also, this mod adds the ability to city to be able to train sea units even though the city is not on coast, as long as the city has a sea tile.</Description>
+[NEWLINE]This mod add new columns on Buildings table that you can use.
+[NEWLINE][ICON_PLUS] 'IsHasTerrain'
+[NEWLINE][ICON_PLUS] 'IsHasHill'
+[NEWLINE][ICON_PLUS] 'IsHasMountain'
+[NEWLINE][ICON_PLUS] 'IsHasAnyWater'
+[NEWLINE][ICON_PLUS] 'IsHasSeaWater'
+[NEWLINE][ICON_PLUS] 'IsHasLake'
+[NEWLINE][ICON_PLUS] 'IsHasRiver'
+[NEWLINE][ICON_PLUS] 'IsHasFreshWater'</Description>
     <Authors>N.Core</Authors>
     <SpecialThanks>
     </SpecialThanks>
@@ -101,6 +99,13 @@
         <MinVersion>0</MinVersion>
         <MaxVersion>999</MaxVersion>
       </Association>
+      <Association>
+        <Type>Mod</Type>
+        <Name>hmmmmm</Name>
+        <Id>2a12e200-4f77-4453-b451-e4a61ffab522</Id>
+        <MinVersion>0</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
     </ModReferences>
     <ReloadUnitSystem>true</ReloadUnitSystem>
     <ModDependencies>
@@ -109,26 +114,36 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
-        <FileName>CORETABLE.sql</FileName>
+        <FileName>SQL/CPC_Table.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
-        <FileName>SQL/BUILDINGS.sql</FileName>
+        <FileName>SQL/CPC_Buildings.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>SQL/CPC_Units.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>SQL/CPC_Texts.sql</FileName>
       </Action>
     </ModActions>
     <ModContent>
       <Content>
         <Type>InGameUIAddin</Type>
-        <Name>CPC - Plot Checker for Building</Name>
+        <Name>CPC - Building Check</Name>
         <Description>[CPC] Some basic plot checker function for buildings</Description>
-        <FileName>LUA/PLOTCHECKER_BUILDING.lua</FileName>
+        <FileName>LUA/CPC_BuildingCheck.lua</FileName>
       </Content>
       <Content>
         <Type>InGameUIAddin</Type>
-        <Name>CPC - Plot Checker for Unit</Name>
+        <Name>CPC - Unit Check</Name>
         <Description>[CPC] Some basic plot checker function for units</Description>
-        <FileName>LUA/PLOTCHECKER_UNIT.lua</FileName>
+        <FileName>LUA/CPC_UnitCheck.lua</FileName>
       </Content>
     </ModContent>
     <ModBlockers>
@@ -150,19 +165,31 @@
     <Folder Include="SQL" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CORETABLE.sql">
+    <Content Include="LUA\CPC_BuildingCheck.lua">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
-    <Content Include="LUA\PLOTCHECKER_BUILDING.lua">
+    <Content Include="LUA\CPC_UnitCheck.lua">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
-    <Content Include="LUA\PLOTCHECKER_UNIT.lua">
+    <Content Include="LUA\CPC_Core.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="SQL\CPC_Buildings.sql">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
-    <Content Include="SQL\BUILDINGS.sql">
+    <Content Include="SQL\CPC_Table.sql">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="SQL\CPC_Texts.sql">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="SQL\CPC_Units.sql">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
