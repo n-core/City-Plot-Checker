@@ -2,70 +2,51 @@ print("-------------------------------------------------------");
 print("----- START -- Plot Checker for building procedure-----");
 print("-------------------------------------------------------");
 
-local L = Locale.ConvertTextKey
+local L = Locale.ConvertTextKey;
 
-function buildingCheck (iPlayer, iCity, buildingTypeID)
+function CPC_BuildingCheck (iPlayer, iCity, buildingTypeID)
 	local pPlayer = Players[iPlayer];
 	local pCity = pPlayer:GetCityByID(iCity);
 
-	local iHasTerrain = GameInfo.Buildings[buildingTypeID].IsHasTerrain;
-	--local iHasFeature = GameInfo.Buildings[buildingTypeID].IsHasFeature; --Scrapped, I forgot that Building_LocalFeatureOrs table exists
-	local iHasHill = GameInfo.Buildings[buildingTypeID].IsHasHill;
-	local iHasMountain = GameInfo.Buildings[buildingTypeID].IsHasMountain;
-	local iHasAnyWater = GameInfo.Buildings[buildingTypeID].IsHasAnyWater;
-	local iHasSeaWater = GameInfo.Buildings[buildingTypeID].IsHasSeaWater;
-	local iHasLake = GameInfo.Buildings[buildingTypeID].IsHasLake;
-	local iHasRiver = GameInfo.Buildings[buildingTypeID].IsHasRiver;
-	local iHasFreshWater = GameInfo.Buildings[buildingTypeID].IsHasFreshWater;
+	local sHasTerrain = GameInfo.Buildings[buildingTypeID].IsHasTerrain;
+	local bHasHill = GameInfo.Buildings[buildingTypeID].IsHasHill;
+	local bHasMountain = GameInfo.Buildings[buildingTypeID].IsHasMountain;
+	local bHasAnyWater = GameInfo.Buildings[buildingTypeID].IsHasAnyWater;
+	local bHasSeaWater = GameInfo.Buildings[buildingTypeID].IsHasSeaWater;
+	local bHasLake = GameInfo.Buildings[buildingTypeID].IsHasLake;
+	local bHasRiver = GameInfo.Buildings[buildingTypeID].IsHasRiver;
+	local bHasFreshWater = GameInfo.Buildings[buildingTypeID].IsHasFreshWater;
 
-	local iCityName = pCity:GetName();
-	local buildingName = L(GameInfo.Buildings[buildingTypeID].Description);
-	local hillName = L("TXT_KEY_PLOTROLL_HILL");
-	local mountainName = L("TXT_KEY_PLOTROLL_MOUNTAIN");
-	local anyWaterName = L("TXT_KEY_CPC_PLOTROLL_ANYWATER");
-	local seaWaterName = L("TXT_KEY_CPC_PLOTROLL_SEA");
-	local riverName = L("TXT_KEY_PLOTROLL_RIVER");
-	local lakeName = L("TXT_KEY_PLOTROLL_LAKE");
-	local freshWaterName = L("TXT_KEY_PLOTROLL_FRESH_WATER");
+	local strCityName = pCity:GetName();
+	local strBuildingName = L(GameInfo.Buildings[buildingTypeID].Description);
+	local strHillName = L("TXT_KEY_PLOTROLL_HILL");
+	local strMountainName = L("TXT_KEY_PLOTROLL_MOUNTAIN");
+	local strAnyWaterName = L("TXT_KEY_CPC_PLOTROLL_ANYWATER");
+	local strSeaWaterName = L("TXT_KEY_CPC_PLOTROLL_SEA");
+	local strRiverName = L("TXT_KEY_PLOTROLL_RIVER");
+	local strLakeName = L("TXT_KEY_PLOTROLL_LAKE");
+	local strFreshWaterName = L("TXT_KEY_PLOTROLL_FRESH_WATER");
 
 	-- If the building has IsHasTerrain check
-	if iHasTerrain ~= nil then
-		local iTerrainID = GameInfoTypes[iHasTerrain];
-		local terrainName = L(GameInfo.Terrains[iTerrainID].Description);
+	if sHasTerrain ~= nil then
+		local eTerrainID = GameInfoTypes[sHasTerrain];
+		local strTerrainName = L(GameInfo.Terrains[eTerrainID].Description);
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
 				pCity:CanWork(pPlot) and
-				pPlot:GetTerrainType() == iTerrainID and
+				pPlot:GetTerrainType() == eTerrainID and
 				pPlot:GetOwner() == iPlayer) then
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, terrainName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strTerrainName, strBuildingName);
 		end
 		return false
 	end
 
-	--[[ If the building has IsHasFeature check --Scrapped, I forgot that Building_LocalFeatureOrs table exists
-	if iHasFeature ~= NULL then
-		local iFeatureID = GameInfoTypes[iHasFeature];
-		local featureName = L(GameInfo.Features[iFeatureID].Description);
-		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do	
-			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
-			if (pPlot and
-				pCity:CanWork(pPlot) and
-				pPlot:GetFeatureType() == iFeatureID and
-				pPlot:GetOwner() == iPlayer) then
-				return true
-			end
-			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, featureName, buildingName);
-		end
-		return false
-	end]]
-
 	-- If the building has IsHasHill check
-	if iHasHill == 1 then
+	if bHasHill == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -75,13 +56,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, hillName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strHillName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasMountain check
-	if iHasMountain == 1 then
+	if bHasMountain == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -91,13 +72,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, mountainName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strMountainName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasAnyWater check
-	if iHasAnyWater == 1 then
+	if bHasAnyWater == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -107,13 +88,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, anyWaterName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strAnyWaterName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasSeaTile check
-	if iHasSeaWater == 1 then
+	if bHasSeaWater == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -124,13 +105,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, seaWaterName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strSeaWaterName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasRiver check
-	if iHasRiver == 1 then
+	if bHasRiver == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -140,13 +121,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD_ADJACENT"), iCityName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD_ADJACENT"), strCityName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasLake check
-	if iHasLake == 1 then
+	if bHasLake == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -156,13 +137,13 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, lakeName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strLakeName, strBuildingName);
 		end
 		return false
 	end
 
 	-- If the building has IsHasFreshWater check
-	if iHasFreshWater == 1 then
+	if bHasFreshWater == 1 then
 		for iCityPlot = 1, pCity:GetNumCityPlots() - 1, 1 do
 			local pPlot = pCity:GetCityIndexPlot(iCityPlot);
 			if (pPlot and
@@ -172,7 +153,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 				return true
 			end
 			--add floating message
-			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), iCityName, freshWaterName, buildingName);
+			LuaEvents.CPC_FloatingMessage(L("TXT_KEY_CPC_CITY_BUILD"), strCityName, strFreshWaterName, strBuildingName);
 		end
 		return false
 	end
@@ -180,7 +161,7 @@ function buildingCheck (iPlayer, iCity, buildingTypeID)
 	return true
 end
 
-GameEvents.CityCanConstruct.Add(buildingCheck)
+GameEvents.CityCanConstruct.Add(CPC_BuildingCheck)
 
 print("------------------------------------------------------");
 print("----- DONE --- Plot Checker for building procedure----");

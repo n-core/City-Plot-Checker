@@ -12,7 +12,7 @@
 [NEWLINE]Tired of can't build that one building that requires specific terrain nearby? But your city has that one terrain on the second or thrid tile?
 [NEWLINE]
 [NEWLINE]This mod has that solution just for you!
-[NEWLINE]By adding some additional city plot check for buildings and units, such as:
+[NEWLINE]By adding some additional city plot check for buildings, such as:
 [NEWLINE][ICON_BULLET] "Is the city has a workable X terrain plot?"
 [NEWLINE][ICON_BULLET] "Is the city has a workable hill plot?"
 [NEWLINE][ICON_BULLET] "Is the city has a workable mountain plot?"
@@ -124,11 +124,6 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
-        <FileName>SQL/CPC_Units.sql</FileName>
-      </Action>
-      <Action>
-        <Set>OnModActivated</Set>
-        <Type>UpdateDatabase</Type>
         <FileName>SQL/CPC_Texts.sql</FileName>
       </Action>
     </ModActions>
@@ -138,12 +133,6 @@
         <Name>CPC - Building Check</Name>
         <Description>[CPC] Some basic plot checker function for buildings</Description>
         <FileName>LUA/CPC_BuildingCheck.lua</FileName>
-      </Content>
-      <Content>
-        <Type>InGameUIAddin</Type>
-        <Name>CPC - Unit Check</Name>
-        <Description>[CPC] Some basic plot checker function for units</Description>
-        <FileName>LUA/CPC_UnitCheck.lua</FileName>
       </Content>
     </ModContent>
     <ModBlockers>
@@ -169,10 +158,6 @@
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
-    <Content Include="LUA\CPC_UnitCheck.lua">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>False</ImportIntoVFS>
-    </Content>
     <Content Include="LUA\CPC_Core.lua">
       <SubType>Lua</SubType>
       <ImportIntoVFS>True</ImportIntoVFS>
@@ -186,10 +171,6 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="SQL\CPC_Texts.sql">
-      <SubType>Lua</SubType>
-      <ImportIntoVFS>False</ImportIntoVFS>
-    </Content>
-    <Content Include="SQL\CPC_Units.sql">
       <SubType>Lua</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
